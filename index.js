@@ -37,8 +37,8 @@ const reverseString = (string) => {
     return '';
   }
 
-  return string[string.length - 1]  + reverseString(string.slice(0, string.length));
+  return string[string.length - 1]  + reverseString(string.slice(0, string.length - 1));
 }
 
-const reverseStringAnswer = reverseString('elephant');
+const reverseStringAnswer = reverseString('treat');
 console.log(reverseStringAnswer);
