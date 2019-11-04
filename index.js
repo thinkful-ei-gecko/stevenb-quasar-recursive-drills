@@ -202,11 +202,11 @@ const allExitsMaze = (mazeArr, position = 0, row, column, direction = 'S', path)
     mazeArr[row][column] = ' ';
   }
   position = position - 1;
-}
+};
 
 const printer = (path, startPos, endPos) => {
   console.log('Found path: ');
   console.log(`${path}`);
-}
+};
 //allExitsMaze(mySmallMaze);
 console.log(allExitsMaze(myLargeMaze, 0, 0, 0, '', []));
