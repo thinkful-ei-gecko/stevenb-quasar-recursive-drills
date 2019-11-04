@@ -15,16 +15,26 @@ const sheepCounter = (sheepCount) => {
 //2nd problem
 
 const powerCalculator = (i, exponent) => {
-  if (exponent < 1) {
+  if (exponent <= 0) {
     console.log('exponent should be >= 0');
     return;
   }
-
-  console.log(i ** exponent);
-  powerCalculator(i, exponent - 1);
+  
+  return i * powerCalculator(i, exponent - 1);
 };
 
-powerCalculator(10, 5);
-powerCalculator(10, -2);
+//powerCalculator(10, 2);
+//powerCalculator(10, -2);
 
 //3rd problem
+
+const reverseString = (string) => {
+  if (!string.length) {
+    return '';
+  }
+
+  const newString = string[string.length - 1]  + reverseString(string.slice(0, string.length));
+  console.log(newString);
+}
+
+//reverseString('elephant');
