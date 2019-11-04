@@ -145,3 +145,68 @@ const maze = (x = 0, y = 0, mazeArr) => {
 //console.log(maze(0, 0, myLargeMaze));
 
 // 9. Maze continued...
+
+/* const allExitsMaze = (x, y, solves = 0, mazeArr) => {
+  const rows = mazeArr.length -1;
+  const columns = mazeArr[0].length -1;
+
+  if (x < 0 || x > columns || y < 0 || y > rows)
+    return 'Please use a x and y value >= 0';
+
+  if (mazeArr[y][x] === 'e')
+    return ` Yay! Reached the goal at ${x}:${y}`;
+
+  if(mazeArr[y][x + 1] === ' ' && x < columns){
+    mazeArr[y][x] = `${solves}`;
+    return 'R' + allExitsMaze(x+1, y, mazeArr);
+  }
+
+  if(mazeArr[y + 1][x] === ' ' && y < rows){
+    mazeArr[y][x] = `${solves}`;
+    return 'D' + allExitsMaze(x, y+1, mazeArr);
+  }
+
+  if(mazeArr[y][x - 1] === ' ' && x >= 0){
+    mazeArr[y][x] = `${solves}`;
+    return 'L' + allExitsMaze(x-1, y, mazeArr);
+  }
+
+  if(mazeArr[y - 1][x] === ' ' && y >= 0){
+    mazeArr[y][x] = `${solves}`;
+    return 'U' + allExitsMaze(x, y-1, mazeArr);
+  }
+}; */
+
+const allExitsMaze = (mazeArr, position = 0, row, column, direction = 'S', path) => {
+  if (column < 0 || row < 0)
+    return 'Out of bounds!';
+
+  if (column >= mazeArr[0].length || row >= mazeArr.length)
+    return 'Out of bounds!';
+
+  path[position] = direction;
+  position++;
+
+  if (mazeArr[row][column] === 'e'){
+    //console.log(`${path}`);
+    printer(path, 1, position - 1);
+    return;
+  }
+
+  if (mazeArr[row][column] === ' ') {
+    mazeArr[row][column] = 's';
+    allExitsMaze(mazeArr, position, row, column - 1, 'L', path);
+    allExitsMaze(mazeArr, position, row - 1, column, 'U', path);
+    allExitsMaze(mazeArr, position, row, column + 1, 'R', path);
+    allExitsMaze(mazeArr, position, row + 1, column, 'D', path);
+    mazeArr[row][column] = ' ';
+  }
+  position = position - 1;
+}
+
+const printer = (path, startPos, endPos) => {
+  console.log('Found path: ');
+  console.log(`${path}`);
+}
+//allExitsMaze(mySmallMaze);
+console.log(allExitsMaze(myLargeMaze, 0, 0, 0, '', []));
