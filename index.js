@@ -15,16 +15,20 @@ const sheepCounter = (sheepCount) => {
 //2nd problem
 
 const powerCalculator = (i, exponent) => {
-  if (exponent <= 0) {
-    console.log('exponent should be >= 0');
-    return;
+  if (exponent === 0) {
+    return 1;
+  }
+  if (exponent < 0) {
+    return 'exponent should be >= 0';
   }
   
   return i * powerCalculator(i, exponent - 1);
 };
 
-//powerCalculator(10, 2);
-//powerCalculator(10, -2);
+//const powerAnswer = powerCalculator(10, 2);
+//console.log(powerAnswer);
+//const noAnswer = powerCalculator(10, -2);
+//console.log(noAnswer);
 
 //3rd problem
 
