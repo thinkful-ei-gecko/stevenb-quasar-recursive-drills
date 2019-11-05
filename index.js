@@ -65,8 +65,8 @@ function stringSplitter(string, separator) {
 
   if (index === -1)
     return [string];
-  
-  return [string.slice(0,index)].concat(
+
+  return [string.slice(0, index)].concat(
     stringSplitter(
       string.slice(index + separator.length), separator));
 }
@@ -75,22 +75,22 @@ function stringSplitter(string, separator) {
 
 // 6. fibonacci
 function fibonacci(num) {
-  if (num===0)
+  if (num === 0)
     return 'pick a number greater than or equal to 1'
 
-  if(num<=2)
+  if (num <= 2)
     return 1;
 
-  return fibonacci(num - 1) + fibonacci(num-2);
+  return fibonacci(num - 1) + fibonacci(num - 2);
 }
 
 // 7. factorial
 function factorial(num) {
-  if(num===0) 
+  if (num === 0)
     return 1;
-  if(num===1)
+  if (num === 1)
     return 1;
-  return num * factorial(num-1);
+  return num * factorial(num - 1);
 }
 
 
@@ -111,33 +111,33 @@ let myLargeMaze = [
 ];
 
 const maze = (x = 0, y = 0, mazeArr) => {
-  const rows = mazeArr.length -1;
-  const columns = mazeArr[0].length -1;
+  const rows = mazeArr.length - 1;
+  const columns = mazeArr[0].length - 1;
 
   if (x < 0 || x > columns || y < 0 || y > rows)
     return 'Please use a x and y value >= 0';
-  
+
   if (mazeArr[y][x] === 'e')
     return ` Yay! Reached the goal at ${x}:${y}`;
 
-  if(mazeArr[y][x + 1] !== '*' && x < columns){
+  if (mazeArr[y][x + 1] !== '*' && x < columns) {
     mazeArr[y][x] = '*';
-    return 'R' + maze(x+1, y, mazeArr);
+    return 'R' + maze(x + 1, y, mazeArr);
   }
 
-  if(mazeArr[y][x - 1] !== '*' && x >= 0){
+  if (mazeArr[y][x - 1] !== '*' && x >= 0) {
     mazeArr[y][x] = '*';
-    return 'L' + maze(x-1, y, mazeArr);
+    return 'L' + maze(x - 1, y, mazeArr);
   }
 
-  if(mazeArr[y + 1][x] !== '*' && y < rows){
+  if (mazeArr[y + 1][x] !== '*' && y < rows) {
     mazeArr[y][x] = '*';
-    return 'D' + maze(x, y+1, mazeArr);
+    return 'D' + maze(x, y + 1, mazeArr);
   }
 
-  if(mazeArr[y - 1][x] !== '*' && y >= 0){
+  if (mazeArr[y - 1][x] !== '*' && y >= 0) {
     mazeArr[y][x] = '*';
-    return 'U' + maze(x, y-1, mazeArr);
+    return 'U' + maze(x, y - 1, mazeArr);
   }
 };
 
@@ -187,7 +187,7 @@ const allExitsMaze = (mazeArr, position = 0, row, column, direction = 'S', path)
   path[position] = direction;
   position++;
 
-  if (mazeArr[row][column] === 'e'){
+  if (mazeArr[row][column] === 'e') {
     //console.log(`${path}`);
     printer(path, 1, position - 1);
     return;
@@ -210,3 +210,117 @@ const printer = (path, startPos, endPos) => {
 };
 //allExitsMaze(mySmallMaze);
 console.log(allExitsMaze(myLargeMaze, 0, 0, 0, '', []));
+
+// 10. Anagrams
+function anagrams(prefix, str) {
+  if (str.length <= 1) {
+    console.log(`The anagram is ${prefix}${str}`);
+  } else {
+    for (let i = 0; i < str.length; i++) {
+      let currentLetter = str.substring(i, i + 1);
+      let previousLetters = str.substring(0, i);
+      let afterLetters = str.substring(i + 1);
+      anagrams(prefix + currentLetter, previousLetters + afterLetters);
+    }
+  }
+}
+function printAnagram(word) {
+  anagrams(' ', word);
+}
+
+// printAnagram('east');
+
+// 11. organization chart
+
+let organization = {
+  'Zuckerberg': {
+    'Schroepfer': {
+      'Bosworth': {
+        'Steve': {},
+        'Kyle': {},
+        'Andra': {}
+      },
+      'Zhao': {
+        'Richie': {},
+        'Sofia': {},
+        'Jen': {}
+      },
+      'Badros': {
+        'John': {},
+        'Mike': {},
+        'Pat': {}
+      },
+      'Parikh': {
+        'Zach': {},
+        'Ryan': {},
+        'Tes': {}
+      }
+    },
+    'Schrage': {
+      'VanDyck': {
+        'Sabrina': {},
+        'Michelle': {},
+        'Josh': {}
+      },
+      'Swain': {
+        'Blanch': {},
+        'Tom': {},
+        'Joe': {}
+      },
+      'Frankovsky': {
+        'Jasee': {},
+        'Brian': {},
+        'Margaret': {}
+      }
+    },
+    'Sandberg': {
+      'Goler': {
+        'Eddie': {},
+        'Julie': {},
+        'Annie': {}
+      },
+      'Hernandez': {
+        'Rowi': {},
+        'Inga': {},
+        'Morgan': {}
+      },
+      'Moissinac': {
+        'Amy': {},
+        'Chuck': {},
+        'Vinni': {}
+      },
+      'Kelley': {
+        'Eric': {},
+        'Ana': {},
+        'Wes': {}
+      }
+    }
+  }
+};
+function traverseA(data, depth = 0) {
+  let indent = ' '.repeat(depth * 4);
+  Object.keys(data).forEach(key => {
+    console.log(indent + key);
+    traverseA(data[key], depth + 1);
+  });
+}
+
+function traverseB(node, indent = 0) {
+  for (let key in node) {
+    console.log(' '.repeat(indent), key);
+    traverseB(node[key], indent + 4);
+  }
+}
+
+// traverseA(organization);
+// traverseB(organization);
+
+function binaryRep(input) {
+  if(input <= 0) {
+    return '';
+  }
+  let binary = Math.floor(input%2);
+  return binaryRep(Math.floor(input/2)) + binary;
+}
+
+// console.log(binaryRep(25));
